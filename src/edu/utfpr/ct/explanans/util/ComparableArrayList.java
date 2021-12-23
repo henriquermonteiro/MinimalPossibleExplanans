@@ -6,6 +6,7 @@
 package edu.utfpr.ct.explanans.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Class responsible for comparing two array lists contents.
@@ -15,11 +16,16 @@ import java.util.ArrayList;
  */
 public class ComparableArrayList<T> extends ArrayList<T> implements Comparable<ComparableArrayList<T>>{
     
-    /**
-     * Basic constructor.
-     */
     public ComparableArrayList() {
         super();
+    }
+
+    public ComparableArrayList(int initialCapacity) {
+        super(initialCapacity);
+    }
+
+    public ComparableArrayList(Collection<? extends T> c) {
+        super(c);
     }
 
     /**

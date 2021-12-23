@@ -11,6 +11,7 @@ import edu.utfpr.ct.explanans.model.EventNode;
 import edu.utfpr.ct.explanans.util.ComparableArrayList;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * Test case for the library.
@@ -90,29 +91,33 @@ public class Test1 {
         
         // Calculate the possible explanans
 
-        ArrayList<ComparableArrayList<ConditionNode>> possibleExplanans = MinimalistPossibleExplanans.initializeAndCalculateMPE(conditions, events);
+        ArrayList<HashSet<ConditionNode>> possibleExplanans = MinimalistPossibleExplanans.initializeAndCalculateMPE(conditions, events);
+        
+        ArrayList<ComparableArrayList<ConditionNode>> comparable_PE = new ArrayList<>(possibleExplanans.size());
         
         // Order the resulting set to evaluate the result correctness
-        for(ArrayList<ConditionNode> cover : possibleExplanans){
-            Collections.sort(cover);
+        for(HashSet<ConditionNode> cover : possibleExplanans){
+            ComparableArrayList<ConditionNode> compList = new ComparableArrayList<>(cover);
+            Collections.sort(compList);
+            comparable_PE.add(compList);
         }
         
-        Collections.sort(possibleExplanans);
+        Collections.sort(comparable_PE);
         
         // Right result
         String rightResult = "[[1, 4, 5], [1, 4, 6], [2, 3, 5], [2, 3, 6], [2, 5, 7], [2, 6, 7], ";
         rightResult += "[3, 4, 5], [3, 4, 6], [4, 5, 7], [4, 6, 7], [5, 8], [6, 8]]";
         
-        System.out.println(possibleExplanans.toString());
+        System.out.println(comparable_PE.toString());
         
         // Print the result.
-        if(possibleExplanans.toString().equals(rightResult)){
+        if(comparable_PE.toString().equals(rightResult)){
             System.out.println("Test 1 : OK");
         }else{
             System.err.println("Test 1 : FAILED");
         }
         
-        return possibleExplanans;
+        return comparable_PE;
     }
     
     public static void main(String ... args){

@@ -25,6 +25,15 @@ public class EventNode implements Comparable<EventNode> {
     }
     
     /**
+     * Returns the node name.
+     * @return name
+     */
+    @Override
+    public String toString() {
+        return name;
+    }
+    
+    /**
      * Compares two event nodes using the standard String.compareTo methos, using the names.
      * @param o The event node being compared to
      * @return 
